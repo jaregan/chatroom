@@ -5,18 +5,58 @@ app.controller('mainCtrl', function($scope, parseService){
 
   //The getParseData function will call the getData method on the parseService object. You'll then save the result of that request to 
   //your controllers $scope as messages ($scope.messages)
+  $scope.messages = {};
+  $scope.getParseData = function() {
+    parseService.getData().then(function (response) {
+      var newArr = response.data.results;
+      // for(var i = 0; i < newArr.length; i++){
+      //   newArr[i].createdAt = $scope.formatDate(newArr[i].createdAt)
+      // }
+      $scope.messages = newArr;
+      console.log(response)
+    }, function(error) {
+      console.log(error);
+    })
+  }
 
+  $scope.formatDate = function(date){
+    return new Date(date).toLocaleString();
+  }
 
 
   //The postData function will take whatever the user typed in (hint: look at the html and see what ng-model correlates to on the input box),
   //pass that text to the postData method on the parseService object which will then post it to the parse backend.
+  $scope.message = "";
+  $scope.postData = function() {
+    parseService.postData($scope.message).then(function (response){
+      alert('Message posted successfully!');
+      $scope.message = "";
+    }, function(error) {
+      alert('Error posting message!');
+    })
+  }
 
+  $scope.spliceTime = function() {
+    $scope.getParseData()
+    // .then(function(response) {
+    //   var arr = [];
+    //   arr.push($scope.messages.createdAt.charAt(11));
+    //   arr.push($scope.messages.createdAt.charAt(12));
+    //   arr.push($scope.messages.createdAt.charAt(13));
+    //   arr.push($scope.messages.createdAt.charAt(14));
+    //   arr.push($scope.messages.createdAt.charAt(15));
+    //   var str = arr.join("");
+    //   console.log(str);
+    //   return str;
+    // })
+  }
 
+  $scope.spliceTime();
 
 
   //uncomment this code when your getParseData function is finished
   //This goes and gets new data every second, which mimicking a chat room experience.
-  // setInterval(function(){
-  //   $scope.getParseData();
-  // }, 1500)
+  setInterval(function(){
+    $scope.getParseData();
+  }, 1500)
 })
