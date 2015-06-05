@@ -13,7 +13,7 @@ app.controller('mainCtrl', function($scope, parseService){
       //   newArr[i].createdAt = $scope.formatDate(newArr[i].createdAt)
       // }
       $scope.messages = newArr;
-      console.log(response)
+     
     }, function(error) {
       console.log(error);
     })
@@ -36,8 +36,8 @@ app.controller('mainCtrl', function($scope, parseService){
     })
   }
 
-  $scope.spliceTime = function() {
-    $scope.getParseData()
+  // $scope.spliceTime = function() {
+  //   $scope.getParseData()
     // .then(function(response) {
     //   var arr = [];
     //   arr.push($scope.messages.createdAt.charAt(11));
@@ -49,9 +49,9 @@ app.controller('mainCtrl', function($scope, parseService){
     //   console.log(str);
     //   return str;
     // })
-  }
+  // }
 
-  $scope.spliceTime();
+  // $scope.spliceTime();
 
 
   //uncomment this code when your getParseData function is finished
